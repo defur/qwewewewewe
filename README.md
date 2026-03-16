@@ -2,59 +2,50 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*    ft_strcapitalize.c                                :+:      :+:    :+:   */
+/*   ft_strstr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ttkachov <ttkachov@student.42.fr>          +#+  +:+       +#+        */
+/*   By: wcorrea- <wcorrea-@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/03/16 11:35:25 by ttkachov          #+#    #+#             */
-/*   Updated: 2026/03/16 11:40:51 by ttkachov         ###   ########.fr       */
+/*   Created: 2023/02/10 12:55:02 by wcorrea-          #+#    #+#             */
+/*   Updated: 2023/02/11 11:51:02 by wcorrea-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
+// #include <stdio.h>
 
-char	*ft_lowcase(char *str)
+char	*ft_strstr(char *str, char *to_find)
 {
 	int	i;
+	int	j;
 
 	i = 0;
-	while (str[i])
+	// If to_find is empty, the string is returned whole
+	if (to_find[0] == '\0')
+		return (str);
+	while (str[i] != '\0')
 	{
-		if (str[i] >= 'A' && str[i] <= 'Z')
-			str[i] += 32;
-		i++;
-	}
-	return (str);
-}
-
-char	*ft_strcapitalize(char *str)
-{
-	int		i;
-
-	ft_lowcase(str);
-
-	if (str[0] >= 'a' && str[0] <= 'z')
-		str[0] -= 32;
-	i = 1;
-	while (str[i])
-	{
-		if (!((str[i - 1] >= 'a' && str[i - 1] <= 'z')
-				|| (str[i - 1] >= 'A' && str[i - 1] <= 'Z')
-				|| (str[i - 1] >= '0' && str[i - 1] <= '9')))
+		j = 0;
+		// Looking for the first correspondence between STR and TO_FIND
+		// while they are equal the 'j' counter is added
+		// 'i' remains with the value of the first correspondence
+		while (str[i + j] != '\0' && str[i + j] == to_find[j])
 		{
-			if (str[i] >= 'a' && str[i] <= 'z')
-				str[i] -= 32;
-		}
-		i++;
-	}
-	return (str);
+			// If 'j' next position is equal to the null
+			// Is returned the string from position of 'i'
+			if (to_find[j + 1] == '\0')
+				return (&str[i]);
+			++j;
+		}	
+		++i;
+	}	
+	return (0);
 }
-
+/* 
 int	main(void)
 {
-	char	str[] = "qweqwe? qwe?qwe qQwe QWEe ++_)+qwe EewqwewQWee";
+	char *str = "Try to find this part of the text";
+	char *to_find = "to find";
 
-	printf("Before: %s\n", str);
-	printf("After: %s\n", ft_strcapitalize(str));
-}
+	printf("Returned: %s\n", ft_strstr(str, to_find));
+} */
 ```
